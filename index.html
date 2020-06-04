@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Weather App</title>
+</head>
+
+<body>
+  <header>
+    <div class="col-12">
+        <h1>Weather Dashboard</h1>
+    </div>
+  </header>
+  <main>
+    <div class="row">
+        <div class="col-3">
+            <div>
+                <h4>Search for a City:</h4>
+            </div>
+            <div>
+                <form class="form-inline">
+                    <input type="text" class="form-control">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search aria-hidden"></i></button>
+                </form>
+            </div>
+            <div class="search-history">
+                <ul class="list-group">
+                    <li class="list-group-item">Austin</li>
+                    <li class="list-group-item">Chicago</li>
+                    <li class="list-group-item">New York</li>
+                    <li class="list-group-item">Orlando</li>
+                    <li class="list-group-item">San Francisco</li>
+                    <li class="list-group-item">Seattle</li>
+                    <li class="list-group-item">Denver</li>
+                    <li class="list-group-item">Atlanta</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="card current-day">
+                <h2>Atlanta (6/3/2020)</h2>
+                <p>Temperature: </p>
+                <p>Humidity: </p>
+                <p>Wind Speed: </p>
+                <p>UV Index: </p>
+            </div>
+            <div>
+                <h3>5-Day Forecast:</h3>
+            </div>
+            <div class="row">
+                <div class="col-2 card bg-primary five-day">
+                    <h5>6/4/2020</h5>
+                    <p>Temp: </p>
+                    <p>Humidity: </p>
+                </div>
+                <div class="col-2 card bg-primary five-day">
+                    <h5>6/5/2020</h5>
+                    <p>Temp: </p>
+                    <p>Humidity: </p>
+                </div>
+                <div class="col-2 card bg-primary five-day">
+                    <h5>6/6/2020</h5>
+                    <p>Temp: </p>
+                    <p>Humidity: </p>
+                </div>
+                <div class="col-2 card bg-primary five-day">
+                    <h5>6/7/2020</h5>
+                    <p>Temp: </p>
+                    <p>Humidity: </p>
+                </div>
+                <div class="col-2 card bg-primary five-day">
+                    <h5>6/8/2020</h5>
+                    <p>Temp: </p>
+                    <p>Humidity: </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

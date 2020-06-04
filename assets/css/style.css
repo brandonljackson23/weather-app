@@ -1,0 +1,29 @@
+header div {
+    background-color: rgb(39, 39, 60);
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+main {
+    margin: 15px 30px;
+}
+
+.current-day {
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+
+.five-day {
+    padding: 5px 15px;
+    color: white;
+    margin: 0px 10px 10px 10px;
+}
+
+.search-history {
+    margin-top: 20px;
+}
+
+.search {
+    margin: 10px;
+}
