@@ -45,45 +45,22 @@
         </div>
         <div class="col-9">
             <div class="card current-day" id="current-day">
-                <h2>Atlanta (6/3/2020)</h2>
-                <p>Temperature: </p>
-                <p>Humidity: </p>
-                <p>Wind Speed: </p>
-                <p>UV Index: </p>
+                <div id="card-title" class="row current-day"></div>
             </div>
             <div>
                 <h3>5-Day Forecast:</h3>
             </div>
             <div class="row">
-                <div class="col-2 card bg-primary five-day" id="tomorrow">
-                    <h5>6/4/2020</h5>
-                    <p>Temp: </p>
-                    <p>Humidity: </p>
-                </div>
-                <div class="col-2 card bg-primary five-day" id="day-two">
-                    <h5>6/5/2020</h5>
-                    <p>Temp: </p>
-                    <p>Humidity: </p>
-                </div>
-                <div class="col-2 card bg-primary five-day" id="day-three">
-                    <h5>6/6/2020</h5>
-                    <p>Temp: </p>
-                    <p>Humidity: </p>
-                </div>
-                <div class="col-2 card bg-primary five-day" id="day-four">
-                    <h5>6/7/2020</h5>
-                    <p>Temp: </p>
-                    <p>Humidity: </p>
-                </div>
-                <div class="col-2 card bg-primary five-day" id="day-five">
-                    <h5>6/8/2020</h5>
-                    <p>Temp: </p>
-                    <p>Humidity: </p>
-                </div>
+                <div class="col-2 card bg-primary five-day" id="day-one"></div>
+                <div class="col-2 card bg-primary five-day" id="day-two"></div>
+                <div class="col-2 card bg-primary five-day" id="day-three"></div>
+                <div class="col-2 card bg-primary five-day" id="day-four"></div>
+                <div class="col-2 card bg-primary five-day" id="day-five"></div>
             </div>
         </div>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 
