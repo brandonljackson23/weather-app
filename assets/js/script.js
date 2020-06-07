@@ -8,111 +8,65 @@ var dayTwoEl = document.querySelector("#day-two");
 var dayThreeEl = document.querySelector("#day-three");
 var dayFourEl = document.querySelector("#day-four");
 var dayFiveEl = document.querySelector("#day-five");
-var apiKey = "fb0eaa5e6e3b462dd643789c7960e482";
 var searchArr = JSON.parse(localStorage.getItem("city")) || [];
+var apiKey = "fb0eaa5e6e3b462dd643789c7960e482";
+var uvApiKey = "5969e50eda90484ab2b441b0a5d504e8";
 
-var getWeatherInfo = function(searchInput, lat, lng) {
+var getWeatherInfo = function(searchInput) {
     // format the weather api call
     var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + searchInput + '&units=Imperial&APPID=' + apiKey;
-    // format the uv index api call
-    //var uvApiUrl = 'https://api.openuv.io/api/v1/uv?lat=' + lat + '&lng=' + lng;
-    // make the api call
+    var uvApiUrl = 'https://api.weatherbit.io/v2.0/current?city=' + searchInput + '&key=' + uvApiKey;
     fetch(apiUrl)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
             console.log(data);
-            // city name
             var city = data.city.name
-            console.log("City: " + city)
-            // city lat
-            var lat = data.city.coord.lat
-            console.log("Latitude: " + lat)
-            // city lon
-            var lng = data.city.coord.lon
-            console.log("Longitude: " + lng)
             // current day
-            // icon
             var icon = data.list[0].weather[0].icon
-            console.log("Icon: " + icon)
-            // temperature
             var temp = data.list[0].main.temp
-            console.log("Temperature: " + temp)
-            // humidity
             var humidity = data.list[0].main.humidity
-            console.log("Humidity: " + humidity)
-            // wind speed
             var wind = data.list[0].wind.speed
-            console.log("Wind Speed: " + wind)
             // day 1
-            // icon
             var iconD1 = data.list[8].weather[0].icon
-            console.log("Icon: " + iconD1)
-            // temperature
             var tempD1 = data.list[8].main.temp
-            console.log("Temperature: " + tempD1)
-            // humidity
             var humidityD1 = data.list[8].main.humidity
-            console.log("Humidity: " + humidityD1)
             // day 2
-            // icon
             var iconD2 = data.list[16].weather[0].icon
-            console.log("Icon: " + iconD2)
-            // temperature
             var tempD2 = data.list[16].main.temp
-            console.log("Temperature: " + tempD2)
-            // humidity
             var humidityD2 = data.list[16].main.humidity
-            console.log("Humidity: " + humidityD2)
             // day 3
-            // icon
             var iconD3 = data.list[24].weather[0].icon
-            console.log("Icon: " + iconD3)
-            // temperature
             var tempD3 = data.list[24].main.temp
-            console.log("Temperature: " + tempD3)
-            // humidity
             var humidityD3 = data.list[24].main.humidity
-            console.log("Humidity: " + humidityD3)
             // day 4
-            // icon
             var iconD4 = data.list[32].weather[0].icon
-            console.log("Icon: " + iconD4)
-            // temperature
             var tempD4 = data.list[32].main.temp
-            console.log("Temperature: " + tempD4)
-            // humidity
             var humidityD4 = data.list[32].main.humidity
-            console.log("Humidity: " + humidityD4)
             // day 5
-            // icon
             var iconD5 = data.list[39].weather[0].icon
-            console.log("Icon: " + iconD5)
-            // temperature
             var tempD5 = data.list[39].main.temp
-            console.log("Temperature: " + tempD5)
-            // humidity
             var humidityD5 = data.list[39].main.humidity
-            console.log("Humidity: " + humidityD5)
+            return fetch(uvApiUrl)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data);
+                var uvIndex = data.data[0].uv
+                console.log(uvIndex);
 
-            displayCurrentDate(city, icon, temp, humidity, wind);
+            displayCurrentDate(city, icon, temp, humidity, wind, uvIndex);
             displayDayOne(iconD1, tempD1, humidityD1);
             displayDayTwo(iconD2, tempD2, humidityD2);
             displayDayThree(iconD3, tempD3, humidityD3);
             displayDayFour(iconD4, tempD4, humidityD4);
             displayDayFive(iconD5, tempD5, humidityD5);
             saveSearch(city);
-            // return fetch(uvApiUrl)
-            // .then(function(response) {
-            //     return response.json();
-            // })
-            // .then(function(data) {
-            //     console.log(data);
-            // });
+            });
         });
 };
-
 var searchSubmitHandler = function(event) {
     event.preventDefault();
     // get value from search input element
@@ -120,16 +74,13 @@ var searchSubmitHandler = function(event) {
     getWeatherInfo(searchInput);
     searchInputEl.value = "";
 };
-
 searchBtnEl.addEventListener("click", searchSubmitHandler);
-
 removeCurrentDate = function() {
     var title = document.getElementById("current-title");
     title.remove();
     displayCurrentDate();
 };
-
-displayCurrentDate = function(city, icon, temp, humidity, wind) {
+displayCurrentDate = function(city, icon, temp, humidity, wind, uvIndex) {
     // replace exisitng city and date
     var replaceCity = document.querySelector("#current-title");
     var currentCityEl = document.createElement("h2");
@@ -164,8 +115,24 @@ displayCurrentDate = function(city, icon, temp, humidity, wind) {
     currentWindEl.innerHTML = "Wind Speed: " + wind + " mph";
     currentWindEl.setAttribute("id", "current-wind");
     currentDayEl.replaceChild(currentWindEl, replaceWind);
+    // display uv index
+    var spanEl = document.querySelector("#current-uv-span");
+    var replaceUv = document.getElementById("current-uv");
+    var currentUvLabelEl = document.createElement("p");
+    currentUvLabelEl.innerHTML = "UV Index: ";
+    currentUvLabelEl.setAttribute("id", "current-uv");
+    currentDayEl.replaceChild(currentUvLabelEl, replaceUv);
+    spanEl.innerHTML = uvIndex
+    spanEl.setAttribute("id", "current-uv-span");
+    var uv = parseInt(uvIndex);
+    console.log(uv);
+    if (uv < 3) {
+        spanEl.classList = "low";
+    } else if (uv < 6) {
+        spanEl.classList = "moderate";
+    } spanEl.classList = "high";
+    currentUvLabelEl.appendChild(spanEl);
 };
-
 displayDayOne = function(iconD1, tempD1, humidityD1) {
     // replace existing date
     var replaceDate = document.getElementById("day-one-date");
@@ -173,7 +140,6 @@ displayDayOne = function(iconD1, tempD1, humidityD1) {
     var currentDate = moment();
     var dateD1 = currentDate + (1 * 86400000);
     var date = moment(dateD1).format("M/D/YYYY");
-    console.log("Tomorrow's Date: " + date);
     dayOneDateEl.innerHTML = date;
     dayOneDateEl.setAttribute("id", "day-one-date");
     dayOneEl.replaceChild(dayOneDateEl, replaceDate);
@@ -199,7 +165,6 @@ displayDayOne = function(iconD1, tempD1, humidityD1) {
     humidityEl.setAttribute("id", "day-one-humidity");
     dayOneEl.replaceChild(humidityEl, replacehumidity);
 };
-
 displayDayTwo = function(iconD2, tempD2, humidityD2) {
     // replace existing date
     var replaceDate = document.getElementById("day-two-date");
@@ -232,7 +197,6 @@ displayDayTwo = function(iconD2, tempD2, humidityD2) {
     humidityEl.setAttribute("id", "day-two-humidity");
     dayTwoEl.replaceChild(humidityEl, replacehumidity);
 };
-
 displayDayThree = function(iconD3, tempD3, humidityD3) {
     // replace existing date
     var replaceDate = document.getElementById("day-three-date");
@@ -265,7 +229,6 @@ displayDayThree = function(iconD3, tempD3, humidityD3) {
     humidityEl.setAttribute("id", "day-three-humidity");
     dayThreeEl.replaceChild(humidityEl, replacehumidity);
 };
-
 displayDayFour = function(iconD4, tempD4, humidityD4) {
     // replace existing date
     var replaceDate = document.getElementById("day-four-date");
@@ -298,7 +261,6 @@ displayDayFour = function(iconD4, tempD4, humidityD4) {
     humidityEl.setAttribute("id", "day-four-humidity");
     dayFourEl.replaceChild(humidityEl, replacehumidity);
 };
-
 displayDayFive = function(iconD5, tempD5, humidityD5) {
     // replace existing date
     var replaceDate = document.getElementById("day-five-date");
@@ -331,7 +293,6 @@ displayDayFive = function(iconD5, tempD5, humidityD5) {
     humidityEl.setAttribute("id", "day-five-humidity");
     dayFiveEl.replaceChild(humidityEl, replacehumidity);
 };
-
 saveSearch = function(city) {
     searchArr.push(city)
     localStorage.setItem("city", JSON.stringify(searchArr));
@@ -340,7 +301,6 @@ saveSearch = function(city) {
     liEl.innerHTML = city;
     searchHistoryEl.appendChild(liEl);
 };
-
 removeLi = function() {
     for(var i = 0; i < searchArr.length; i++) {
         var removeLi = document.getElementById("list-group-item");
@@ -348,7 +308,6 @@ removeLi = function() {
     }
     displayHistory();
 };
-
 displayHistory = function() {
     for(var i = 0; i < searchArr.length; i++) {
         var city = searchArr[i];
@@ -360,3 +319,11 @@ displayHistory = function() {
 };
 
 displayHistory();
+
+// var liEl = document.querySelector("li")
+// liEl.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     var searchInput = liEl.text;
+//     getWeatherInfo(searchInput);
+// });
+
