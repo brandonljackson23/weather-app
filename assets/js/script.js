@@ -295,18 +295,9 @@ displayDayFive = function(iconD5, tempD5, humidityD5) {
     dayFiveEl.replaceChild(humidityEl, replacehumidity);
 };
 saveSearch = function(city) {
+    searchArr = [];
     searchArr.push(city)
     localStorage.setItem("city", JSON.stringify(searchArr));
-    var liEl = document.createElement("li");
-    liEl.classList = "list-group-item";
-    liEl.innerHTML = city;
-    searchHistoryEl.appendChild(liEl);
-};
-removeLi = function() {
-    for(var i = 0; i < searchArr.length; i++) {
-        var removeLi = document.getElementById("list-group-item");
-        removeLi.remove();
-    }
     displayHistory();
 };
 displayHistory = function() {
@@ -316,15 +307,10 @@ displayHistory = function() {
         liEl.classList = "list-group-item";
         liEl.innerHTML = city;
         searchHistoryEl.appendChild(liEl);
-    } 
+        liEl.addEventListener("click", function() {
+            var searchInput = liEl.textContent
+            getWeatherInfo(searchInput);
+        });
+    }
 };
-
 displayHistory();
-
-// var liEl = document.querySelector("li")
-// liEl.addEventListener("click", function(event) {
-//     event.preventDefault();
-//     var searchInput = liEl.text;
-//     getWeatherInfo(searchInput);
-// });
-
