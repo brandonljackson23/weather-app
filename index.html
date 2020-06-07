@@ -31,31 +31,50 @@
                 </form>
             </div>
             <div class="search-history">
-                <ul class="list-group" id="search-history">
-                    <li class="list-group-item">Austin</li>
-                    <li class="list-group-item">Chicago</li>
-                    <li class="list-group-item">New York</li>
-                    <li class="list-group-item">Orlando</li>
-                    <li class="list-group-item">San Francisco</li>
-                    <li class="list-group-item">Seattle</li>
-                    <li class="list-group-item">Denver</li>
-                    <li class="list-group-item">Atlanta</li>
-                </ul>
+                <ul class="list-group" id="search-history"></ul>
             </div>
         </div>
         <div class="col-9">
             <div class="card current-day" id="current-day">
-                <div id="card-title" class="row current-day"></div>
+                <div id="card-title" class="row current-day"><h2 id="current-title"></h2><span id="current-icon-span"><img id="current-icon"/></span></div>
+                <p id="current-temp"></p>
+                <p id="current-humidity"></p>
+                <p id="current-wind"></p>
             </div>
             <div>
                 <h3>5-Day Forecast:</h3>
             </div>
             <div class="row">
-                <div class="col-2 card bg-primary five-day" id="day-one"></div>
-                <div class="col-2 card bg-primary five-day" id="day-two"></div>
-                <div class="col-2 card bg-primary five-day" id="day-three"></div>
-                <div class="col-2 card bg-primary five-day" id="day-four"></div>
-                <div class="col-2 card bg-primary five-day" id="day-five"></div>
+                <div class="col-2 card bg-primary five-day" id="day-one">
+                    <h5 id="day-one-date"></h5>
+                    <span id="day-one-span"><img id="day-one-icon"/></span>
+                    <p id="day-one-temp"></p>
+                    <p id="day-one-humidity"></p>
+                </div>
+                <div class="col-2 card bg-primary five-day" id="day-two">
+                    <h5 id="day-two-date"></h5>
+                    <span id="day-two-span"><img id="day-two-icon"/></span>
+                    <p id="day-two-temp"></p>
+                    <p id="day-two-humidity"></p>
+                </div>
+                <div class="col-2 card bg-primary five-day" id="day-three">
+                    <h5 id="day-three-date"></h5>
+                    <span id="day-three-span"><img id="day-three-icon"/></span>
+                    <p id="day-three-temp"></p>
+                    <p id="day-three-humidity"></p>
+                </div>
+                <div class="col-2 card bg-primary five-day" id="day-four">
+                    <h5 id="day-four-date"></h5>
+                    <span id="day-four-span"><img id="day-four-icon"/></span>
+                    <p id="day-four-temp"></p>
+                    <p id="day-four-humidity"></p>
+                </div>
+                <div class="col-2 card bg-primary five-day" id="day-five">
+                    <h5 id="day-five-date"></h5>
+                    <span id="day-five-span"><img id="day-five-icon"/></span>
+                    <p id="day-five-temp"></p>
+                    <p id="day-five-humidity"></p>
+                </div>
             </div>
         </div>
     </div>

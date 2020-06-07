@@ -9,6 +9,7 @@ var dayThreeEl = document.querySelector("#day-three");
 var dayFourEl = document.querySelector("#day-four");
 var dayFiveEl = document.querySelector("#day-five");
 var apiKey = "fb0eaa5e6e3b462dd643789c7960e482";
+var searchArr = JSON.parse(localStorage.getItem("city")) || [];
 
 var getWeatherInfo = function(searchInput, lat, lng) {
     // format the weather api call
@@ -101,6 +102,7 @@ var getWeatherInfo = function(searchInput, lat, lng) {
             displayDayThree(iconD3, tempD3, humidityD3);
             displayDayFour(iconD4, tempD4, humidityD4);
             displayDayFive(iconD5, tempD5, humidityD5);
+            saveSearch(city);
             // return fetch(uvApiUrl)
             // .then(function(response) {
             //     return response.json();
@@ -114,168 +116,247 @@ var getWeatherInfo = function(searchInput, lat, lng) {
 var searchSubmitHandler = function(event) {
     event.preventDefault();
     // get value from search input element
-    var searchInput = searchInputEl.value.trim();
+    var searchInput = searchInputEl.value.trim();   
     getWeatherInfo(searchInput);
     searchInputEl.value = "";
 };
 
 searchBtnEl.addEventListener("click", searchSubmitHandler);
 
+removeCurrentDate = function() {
+    var title = document.getElementById("current-title");
+    title.remove();
+    displayCurrentDate();
+};
+
 displayCurrentDate = function(city, icon, temp, humidity, wind) {
-    // display city name and date
+    // replace exisitng city and date
+    var replaceCity = document.querySelector("#current-title");
     var currentCityEl = document.createElement("h2");
     var date = moment().format("M/D/YYYY");
     currentCityEl.innerHTML = city + " (" + date + ")";
-    titleEl.appendChild(currentCityEl);
-    // display icon
-    var spanEl = document.createElement("span");
+    currentCityEl.setAttribute("id", "current-title");
+    titleEl.replaceChild(currentCityEl, replaceCity);
+    // replace exisitng icon
+    var spanEl = document.querySelector("#current-icon-span");
+    var replaceIcon = document.querySelector("#current-icon");
     var currentIconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
     currentIconEl.classList = "icon";
     currentIconEl.setAttribute("src", iconUrl);
-    titleEl.appendChild(spanEl);
-    spanEl.appendChild(currentIconEl);
-    // display temperature
+    currentIconEl.setAttribute("id", "current-icon")
+    spanEl.replaceChild(currentIconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("current-temp");
     var currentTempEl = document.createElement("p");
     currentTempEl.innerHTML = "Temperature: " + temp + "&#8457";
-    currentDayEl.appendChild(currentTempEl);
-    // display humidity
+    currentTempEl.setAttribute("id", "current-temp");
+    currentDayEl.replaceChild(currentTempEl, replaceTemp);
+    // replace existing humidity
+    var replaceHumidity = document.getElementById("current-humidity");
     var currentHumidityEl = document.createElement("p");
     currentHumidityEl.innerHTML = "Humidity: " + humidity + "%";
-    currentDayEl.appendChild(currentHumidityEl);
+    currentHumidityEl.setAttribute("id", "current-humidity");
+    currentDayEl.replaceChild(currentHumidityEl, replaceHumidity);
     // display wind speed
+    var replaceWind = document.getElementById("current-wind");
     var currentWindEl = document.createElement("p");
     currentWindEl.innerHTML = "Wind Speed: " + wind + " mph";
-    currentDayEl.appendChild(currentWindEl);
+    currentWindEl.setAttribute("id", "current-wind");
+    currentDayEl.replaceChild(currentWindEl, replaceWind);
 };
 
 displayDayOne = function(iconD1, tempD1, humidityD1) {
-    // display date
+    // replace existing date
+    var replaceDate = document.getElementById("day-one-date");
     var dayOneDateEl = document.createElement("h5");
     var currentDate = moment();
     var dateD1 = currentDate + (1 * 86400000);
     var date = moment(dateD1).format("M/D/YYYY");
     console.log("Tomorrow's Date: " + date);
     dayOneDateEl.innerHTML = date;
-    dayOneEl.appendChild(dayOneDateEl);
-    // display icon
-    var spanEl = document.createElement("span");
-    var IconEl = document.createElement("img");
+    dayOneDateEl.setAttribute("id", "day-one-date");
+    dayOneEl.replaceChild(dayOneDateEl, replaceDate);
+    // replace existing icon
+    var spanEl = document.querySelector("#day-one-span");
+    var replaceIcon = document.getElementById("day-one-icon");
+    var iconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + iconD1 + "@2x.png";
-    IconEl.classList = "icon";
-    IconEl.setAttribute("src", iconUrl);
-    dayOneEl.appendChild(spanEl);
-    spanEl.appendChild(IconEl);
-    // display temperature
+    iconEl.classList = "icon";
+    iconEl.setAttribute("src", iconUrl);
+    iconEl.setAttribute("id", "day-one-icon");
+    spanEl.replaceChild(iconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("day-one-temp");
     var tempEl = document.createElement("p");
     tempEl.innerHTML = "Temp: " + tempD1 + "&#8457";
-    dayOneEl.appendChild(tempEl);
-    // display humidity
+    tempEl.setAttribute("id", "day-one-temp");
+    dayOneEl.replaceChild(tempEl, replaceTemp);
+    // replace existing humidity
+    var replacehumidity = document.getElementById("day-one-humidity");
     var humidityEl = document.createElement("p");
     humidityEl.innerHTML = "Humidity: " + humidityD1 + "%";
-    dayOneEl.appendChild(humidityEl);
+    humidityEl.setAttribute("id", "day-one-humidity");
+    dayOneEl.replaceChild(humidityEl, replacehumidity);
 };
 
 displayDayTwo = function(iconD2, tempD2, humidityD2) {
-    // display date
+    // replace existing date
+    var replaceDate = document.getElementById("day-two-date");
     var dayTwoDateEl = document.createElement("h5");
     var currentDate = moment();
     var dateD2 = currentDate + (2 * 86400000);
     var date = moment(dateD2).format("M/D/YYYY");
     dayTwoDateEl.innerHTML = date;
-    dayTwoEl.appendChild(dayTwoDateEl);
-    // display icon
-    var spanEl = document.createElement("span");
-    var IconEl = document.createElement("img");
+    dayTwoDateEl.setAttribute("id", "day-two-date");
+    dayTwoEl.replaceChild(dayTwoDateEl, replaceDate);
+    // replace existing icon
+    var spanEl = document.querySelector("#day-two-span");
+    var replaceIcon = document.getElementById("day-two-icon");
+    var iconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + iconD2 + "@2x.png";
-    IconEl.classList = "icon";
-    IconEl.setAttribute("src", iconUrl);
-    dayTwoEl.appendChild(spanEl);
-    spanEl.appendChild(IconEl);
-    // display temperature
+    iconEl.classList = "icon";
+    iconEl.setAttribute("src", iconUrl);
+    iconEl.setAttribute("id", "day-two-icon");
+    spanEl.replaceChild(iconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("day-two-temp");
     var tempEl = document.createElement("p");
     tempEl.innerHTML = "Temp: " + tempD2 + "&#8457";
-    dayTwoEl.appendChild(tempEl);
-    // display humidity
+    tempEl.setAttribute("id", "day-two-temp");
+    dayTwoEl.replaceChild(tempEl, replaceTemp);
+    // replace existing humidity
+    var replacehumidity = document.getElementById("day-two-humidity");
     var humidityEl = document.createElement("p");
     humidityEl.innerHTML = "Humidity: " + humidityD2 + "%";
-    dayTwoEl.appendChild(humidityEl);
+    humidityEl.setAttribute("id", "day-two-humidity");
+    dayTwoEl.replaceChild(humidityEl, replacehumidity);
 };
 
 displayDayThree = function(iconD3, tempD3, humidityD3) {
-    // display date
+    // replace existing date
+    var replaceDate = document.getElementById("day-three-date");
     var dayThreeDateEl = document.createElement("h5");
     var currentDate = moment();
     var dateD3 = currentDate + (3 * 86400000);
     var date = moment(dateD3).format("M/D/YYYY");
     dayThreeDateEl.innerHTML = date;
-    dayThreeEl.appendChild(dayThreeDateEl);
-    // display icon
-    var spanEl = document.createElement("span");
-    var IconEl = document.createElement("img");
+    dayThreeDateEl.setAttribute("id", "day-three-date");
+    dayThreeEl.replaceChild(dayThreeDateEl, replaceDate);
+    // replace existing icon
+    var spanEl = document.querySelector("#day-three-span");
+    var replaceIcon = document.getElementById("day-three-icon");
+    var iconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + iconD3 + "@2x.png";
-    IconEl.classList = "icon";
-    IconEl.setAttribute("src", iconUrl);
-    dayThreeEl.appendChild(spanEl);
-    spanEl.appendChild(IconEl);
-    // display temperature
+    iconEl.classList = "icon";
+    iconEl.setAttribute("src", iconUrl);
+    iconEl.setAttribute("id", "day-three-icon");
+    spanEl.replaceChild(iconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("day-three-temp");
     var tempEl = document.createElement("p");
     tempEl.innerHTML = "Temp: " + tempD3 + "&#8457";
-    dayThreeEl.appendChild(tempEl);
-    // display humidity
+    tempEl.setAttribute("id", "day-three-temp");
+    dayThreeEl.replaceChild(tempEl, replaceTemp);
+    // replace existing humidity
+    var replacehumidity = document.getElementById("day-three-humidity");
     var humidityEl = document.createElement("p");
     humidityEl.innerHTML = "Humidity: " + humidityD3 + "%";
-    dayThreeEl.appendChild(humidityEl);
+    humidityEl.setAttribute("id", "day-three-humidity");
+    dayThreeEl.replaceChild(humidityEl, replacehumidity);
 };
 
 displayDayFour = function(iconD4, tempD4, humidityD4) {
-    // display date
+    // replace existing date
+    var replaceDate = document.getElementById("day-four-date");
     var dayFourDateEl = document.createElement("h5");
     var currentDate = moment();
     var dateD4 = currentDate + (4 * 86400000);
     var date = moment(dateD4).format("M/D/YYYY");
     dayFourDateEl.innerHTML = date;
-    dayFourEl.appendChild(dayFourDateEl);
-    // display icon
-    var spanEl = document.createElement("span");
-    var IconEl = document.createElement("img");
+    dayFourDateEl.setAttribute("id", "day-four-date");
+    dayFourEl.replaceChild(dayFourDateEl, replaceDate);
+    // replace existing icon
+    var spanEl = document.querySelector("#day-four-span");
+    var replaceIcon = document.getElementById("day-four-icon");
+    var iconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + iconD4 + "@2x.png";
-    IconEl.classList = "icon";
-    IconEl.setAttribute("src", iconUrl);
-    dayFourEl.appendChild(spanEl);
-    spanEl.appendChild(IconEl);
-    // display temperature
+    iconEl.classList = "icon";
+    iconEl.setAttribute("src", iconUrl);
+    iconEl.setAttribute("id", "day-four-icon");
+    spanEl.replaceChild(iconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("day-four-temp");
     var tempEl = document.createElement("p");
     tempEl.innerHTML = "Temp: " + tempD4 + "&#8457";
-    dayFourEl.appendChild(tempEl);
-    // display humidity
+    tempEl.setAttribute("id", "day-four-temp");
+    dayFourEl.replaceChild(tempEl, replaceTemp);
+    // replace existing humidity
+    var replacehumidity = document.getElementById("day-four-humidity");
     var humidityEl = document.createElement("p");
     humidityEl.innerHTML = "Humidity: " + humidityD4 + "%";
-    dayFourEl.appendChild(humidityEl);
+    humidityEl.setAttribute("id", "day-four-humidity");
+    dayFourEl.replaceChild(humidityEl, replacehumidity);
 };
 
 displayDayFive = function(iconD5, tempD5, humidityD5) {
-    // display date
+    // replace existing date
+    var replaceDate = document.getElementById("day-five-date");
     var dayFiveDateEl = document.createElement("h5");
     var currentDate = moment();
     var dateD5 = currentDate + (5 * 86400000);
     var date = moment(dateD5).format("M/D/YYYY");
     dayFiveDateEl.innerHTML = date;
-    dayFiveEl.appendChild(dayFiveDateEl);
-    // display icon
-    var spanEl = document.createElement("span");
-    var IconEl = document.createElement("img");
+    dayFiveDateEl.setAttribute("id", "day-five-date");
+    dayFiveEl.replaceChild(dayFiveDateEl, replaceDate);
+    // replace existing icon
+    var spanEl = document.querySelector("#day-five-span");
+    var replaceIcon = document.getElementById("day-five-icon");
+    var iconEl = document.createElement("img");
     var iconUrl = "http://openweathermap.org/img/wn/" + iconD5 + "@2x.png";
-    IconEl.classList = "icon";
-    IconEl.setAttribute("src", iconUrl);
-    dayFiveEl.appendChild(spanEl);
-    spanEl.appendChild(IconEl);
-    // display temperature
+    iconEl.classList = "icon";
+    iconEl.setAttribute("src", iconUrl);
+    iconEl.setAttribute("id", "day-five-icon");
+    spanEl.replaceChild(iconEl, replaceIcon);
+    // replace existing temperature
+    var replaceTemp = document.getElementById("day-five-temp");
     var tempEl = document.createElement("p");
     tempEl.innerHTML = "Temp: " + tempD5 + "&#8457";
-    dayFiveEl.appendChild(tempEl);
-    // display humidity
+    tempEl.setAttribute("id", "day-five-temp");
+    dayFiveEl.replaceChild(tempEl, replaceTemp);
+    // replace existing humidity
+    var replacehumidity = document.getElementById("day-five-humidity");
     var humidityEl = document.createElement("p");
     humidityEl.innerHTML = "Humidity: " + humidityD5 + "%";
-    dayFiveEl.appendChild(humidityEl);
+    humidityEl.setAttribute("id", "day-five-humidity");
+    dayFiveEl.replaceChild(humidityEl, replacehumidity);
 };
+
+saveSearch = function(city) {
+    searchArr.push(city)
+    localStorage.setItem("city", JSON.stringify(searchArr));
+    var liEl = document.createElement("li");
+    liEl.classList = "list-group-item";
+    liEl.innerHTML = city;
+    searchHistoryEl.appendChild(liEl);
+};
+
+removeLi = function() {
+    for(var i = 0; i < searchArr.length; i++) {
+        var removeLi = document.getElementById("list-group-item");
+        removeLi.remove();
+    }
+    displayHistory();
+};
+
+displayHistory = function() {
+    for(var i = 0; i < searchArr.length; i++) {
+        var city = searchArr[i];
+        var liEl = document.createElement("li");
+        liEl.classList = "list-group-item";
+        liEl.innerHTML = city;
+        searchHistoryEl.appendChild(liEl);
+    } 
+};
+
+displayHistory();
