@@ -124,13 +124,14 @@ displayCurrentDate = function(city, icon, temp, humidity, wind, uvIndex) {
     currentDayEl.replaceChild(currentUvLabelEl, replaceUv);
     spanEl.innerHTML = uvIndex
     spanEl.setAttribute("id", "current-uv-span");
-    var uv = parseInt(uvIndex);
-    console.log(uv);
-    if (uv < 3) {
+    // add color background based on uv index
+    if (uvIndex < 3) {
         spanEl.classList = "low";
-    } else if (uv < 6) {
+    } else if (uvIndex > 6) {
+        spanEl.classList = "high";
+    } else {
         spanEl.classList = "moderate";
-    } spanEl.classList = "high";
+    };
     currentUvLabelEl.appendChild(spanEl);
 };
 displayDayOne = function(iconD1, tempD1, humidityD1) {

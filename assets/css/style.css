@@ -35,6 +35,7 @@ main {
 
 .low {
     background-color: green;
+    color: white;
 }
 
 .moderate {
@@ -43,4 +44,5 @@ main {
 
 .high {
     background-color: red;
+    color: white;
 }
