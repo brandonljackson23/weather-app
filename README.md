@@ -20,12 +20,12 @@ Whenever a user searches a city the city is stored in localstorage and displayed
 
 ## Screenshots
 Search and Search History
-![screenshot of search and search history](./assets/images/search.PNG)
+![screenshot of search and search history](assets/images/search.PNG)
 
 Current Day Results
-![screenshot of current day weather conditions](./assets/images/current-day.PNG)
+![screenshot of current day weather conditions](assets/images/current-day.PNG)
 
 Five Day Forecast
-![screenshot of five day forecast](./assets/images/five-day-forecast.PNG)
+![screenshot of five day forecast](assets/images/five-day-forecast.PNG)
 
 
